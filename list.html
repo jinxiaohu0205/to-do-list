@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/list.css">
+    <script src="script/angular.min.js"></script>
+    <script src="script/list.js"></script>
+</head>
+<body>
+    <div class="container-fluid" ng-app="myapp">
+        <div class="rows" ng-controller="ctrl">
+            <div class="left">
+                <div class="form-group">
+                    <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+                        <input type="text" class="form-control" id="exampleInputAmount" placeholder="search" ng-model="search">
+                    </div>
+                </div>
+                <div class="success"><span ng-click="showd()">已完成</span> <span>{{done.length}}</span></div>
+                <div class="header"><span class="glyphicon glyphicon-th"></span>我的事项</div>
+                <div class="done" ng-repeat="item in data | filter:{title:search} track by item.id" ng-click="showcon()">
+                    <input type="text" ng-focus="focu(item.id)" ng-blur="blur(item.id)" ng-model="item.title">
+                    <span class="glyphicon glyphicon-trash" id="del1" ng-click="del(item.id)"></span>
+                </div>
+                <div class="di" ng-click="add()"><span class="glyphicon glyphicon-plus"></span>新建事项</div>
+            </div>
+
+            <!--判断是不是显示-->
+            <div class="right" ng-show="isshow==true">
+                <div class="header">
+                    <div class="zuo">
+                        <input type="text" value="{{currentCon.title}}">
+                    </div>
+                    <div class="you" ng-click="addList(currentCon.id)">添加条列</div>
+                </div>
+                <div class="do">
+                    <div class="do_rows" ng-repeat="item in currentCon.son track by item.id">
+                        <div class="zuo">
+                            <div class="cir" ng-click="dfun(currentSon.son.id)"><span class="glyphicon glyphicon-heart"></span></div>
+                            <input type="text" class="input"  value="新建条列" ng-blur="blur()" ng-model="item.title">
+                        </div>
+                        <div class="you"><span class="glyphicon glyphicon-trash" ng-click="delList(currentCon.son.id)"></span></div>
+                    </div>
+                </div>
+            </div>
+
+
+        <!--判断是不是显示-->
+        <div class="right" ng-show="isshow==false">
+            <div class="header">
+                <div class="">完成条列</div>
+            </div>
+            <div class="do">
+                <div class="do_rows" ng-repeat="item in done track by item.id">
+                    <div class="donebox">
+                        <div class="zzuo1">
+                            <!--<div class="cir" ng-click="dfun(currentSon.son.id)"></div>-->
+                            <input type="text" class="inp"  ng-model="item.title" ng-blur="blur()">
+                        </div>
+                        <div class="yyou"><span class="glyphicon glyphicon-trash" ng-click="deldone(item.id)"></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

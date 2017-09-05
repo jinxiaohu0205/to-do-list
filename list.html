@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <!--<meta name="viewport"-->
+          <!--content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0">-->
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -19,12 +19,14 @@
                     <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                     <div class="input-group">
                         <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
-                        <input type="text" class="form-control" id="exampleInputAmount" placeholder="search" ng-model="search">
+                        <!--可以对下边进行事项的搜索-->
+                        <input type="text" class="form-control" id="exampleInputAmount" placeholder="search" ng-model="searc">
                     </div>
                 </div>
                 <div class="success"><span ng-click="showd()">已完成</span> <span>{{done.length}}</span></div>
                 <div class="header"><span class="glyphicon glyphicon-th"></span>我的事项</div>
-                <div class="done" ng-repeat="item in data | filter:{title:search} track by item.id" ng-click="showcon()">
+                <!--filter就是可以进行过滤 里边填数组对象里边的字段 search对应上边-->
+                <div class="done" ng-repeat="item in data | filter:{title:searc} track by item.id" ng-click="showcon()">
                     <input type="text" ng-focus="focu(item.id)" ng-blur="blur(item.id)" ng-model="item.title">
                     <span class="glyphicon glyphicon-trash" id="del1" ng-click="del(item.id)"></span>
                 </div>
@@ -42,10 +44,10 @@
                 <div class="do">
                     <div class="do_rows" ng-repeat="item in currentCon.son track by item.id">
                         <div class="zuo">
-                            <div class="cir" ng-click="dfun(currentSon.son.id)"><span class="glyphicon glyphicon-heart"></span></div>
+                            <div class="cir" ng-click="dfun(item.id)"><span class="glyphicon glyphicon-heart"></span></div>
                             <input type="text" class="input"  value="新建条列" ng-blur="blur()" ng-model="item.title">
                         </div>
-                        <div class="you"><span class="glyphicon glyphicon-trash" ng-click="delList(currentCon.son.id)"></span></div>
+                        <div class="you"><span class="glyphicon glyphicon-trash" ng-click="delList(item.id)"></span></div>
                     </div>
                 </div>
             </div>
